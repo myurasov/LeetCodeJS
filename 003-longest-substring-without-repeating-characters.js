@@ -6,7 +6,7 @@
  */
 var lengthOfLongestSubstring = function (s) {
 
-	// has .clear() nethod which performas much faster creating new object/
+	// has .clear() nethod which performs much faster than creating new object
 	var h = new Set();
 	var m = 0;
 
