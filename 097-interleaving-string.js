@@ -37,9 +37,9 @@ var isInterleave = function (s1, s2, s3) {
 };
 
 /**
- * Returns 1 if first letters start
- * @param s1
- * @param s2
+ * Returns 1 if first letters are equal
+ * @param {string} s1
+ * @param {string} s2
  * @returns {number}
  */
 function matchStarts(s1, s2) {
