@@ -20,12 +20,12 @@ var isInterleave = function (s1, s2, s3) {
 
 	var int1 = false, int2 = false;
 
-	if (matchStarts(s1, s3)) {
+	if (startsMatch(s1, s3)) {
 		int1 = isInterleave(s1.substr(1), s2, s3.substr(1));
 	}
 
 	if (!int1) {
-		if (matchStarts(s2, s3)) {
+		if (startsMatch(s2, s3)) {
 			int2 = isInterleave(s1, s2.substr(1), s3.substr(1));
 		}
 	}
@@ -41,7 +41,7 @@ var isInterleave = function (s1, s2, s3) {
  * @param {string} s2
  * @returns {number}
  */
-function matchStarts(s1, s2) {
+function startsMatch(s1, s2) {
 	if (s1 === '' || s2 === '') return 0;
 	if (s1.charAt(0) === s2.charAt(0)) return 1;
 	return 0;
