@@ -8,7 +8,7 @@
  * }
  */
 
-Array.prototype.peek = function() {
+Array.prototype.peek = function () {
 	return this.length > 0 ? this[this.length - 1] : undefined;
 };
 
@@ -16,7 +16,7 @@ Array.prototype.peek = function() {
  * @param {ListNode} head
  * @return {ListNode}
  */
-var deleteDuplicates = function(head) {
+var deleteDuplicates = function (head) {
 	var r = [];
 	var a = new Set();
 
