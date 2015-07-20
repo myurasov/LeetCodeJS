@@ -10,7 +10,7 @@ var h = new Map();
  * @return {boolean}
  */
 var isInterleave = function (s1, s2, s3) {
-	if (s1 == '' && s2 == '' && s3 == '') return true;
+	if (s1 === '' && s2 === '' && s3 === '') return true;
 
 	// create key for memorization
 	var k = s1 + '.' + s2 + '.' + s3;
@@ -18,17 +18,16 @@ var isInterleave = function (s1, s2, s3) {
 	// already computed
 	if (h[k] !== undefined) return h[k];
 
-	var m1 = matchStarts(s1, s3);
-	var m2 = matchStarts(s2, s3);
-
 	var int1 = false, int2 = false;
 
-	if (m1) {
-		int1 = isInterleave(s1.substr(m1), s2, s3.substr(m1));
+	if (matchStarts(s1, s3)) {
+		int1 = isInterleave(s1.substr(1), s2, s3.substr(1));
 	}
 
-	if (!int1 && m2) {
-		int2 = isInterleave(s1, s2.substr(m2), s3.substr(m2));
+	if (!int1) {
+		if (matchStarts(s2, s3)) {
+			int2 = isInterleave(s1, s2.substr(1), s3.substr(1));
+		}
 	}
 
 	h[k] = int1 || int2;
