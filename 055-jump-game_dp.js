@@ -4,7 +4,6 @@
 // Not accepted by LeetCode OJ due to too deep recursion on large inputs,
 // but fast is an elegant solution.
 
-
 var canJump = function (nums) {
 	return _canJump(nums, 0, new Map());
 }
@@ -21,10 +20,9 @@ var _canJump = function (nums, start, memory) {
 		return memory[key];
 	}
 
-	// empty and single element arrays & overshoots
+	// reached the end
 	if (nums.length - start <= 1) {
-		memory[key] = true;
-		return memory[key];
+		return (memory[key] = true);
 	}
 
 	// check all possible jumps from the first cell
@@ -33,14 +31,12 @@ var _canJump = function (nums, start, memory) {
 
 	while (j > 0) {
 		if (_canJump(nums, start + j--, memory)) {
-			memory[key] = true;
-			return memory[key];
+			return (memory[key] = true);
 		}
 	}
 
 	// didn't work out
-	memory[key] = false;
-	return memory[key];
+	return (memory[key] = false);
 };
 
 /*
