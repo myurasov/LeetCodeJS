@@ -25,7 +25,7 @@ var _canJump = function (nums, start, memory) {
 		return (memory[key] = true);
 	}
 
-	// check all possible jumps from the first cell
+	// check all possible jumps starting with the longest one
 
 	var j = nums[start];
 
