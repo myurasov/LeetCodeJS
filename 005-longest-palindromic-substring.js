@@ -9,7 +9,7 @@ var longestPalindrome = function (s) {
 	var longestPalLength = 0;
 
 	for (var i = 0; i < s.length; i++) {
-		for (var j = s.length - i; j >= 1; j--) {
+		for (var j = s.length - i; j >= (longestPalLength + 1); j--) {
 			if (j > longestPalLength && isPalindrome(s, i, j)) {
 				longestPalLength = j;
 				longestPalStart = i;
