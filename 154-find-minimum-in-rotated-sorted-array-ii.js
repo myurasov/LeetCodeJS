@@ -2,7 +2,7 @@
 
 // Can contain more minor optimizations, but essentially comes to 2 cases:
 // - array is sorted
-// - arrays is rotated and (as it contains duplicates) linear search is applicable
+// - arrays is rotated and (as it contains duplicates) only linear search is applicable
 
 /**
  * @param {number[]} nums
