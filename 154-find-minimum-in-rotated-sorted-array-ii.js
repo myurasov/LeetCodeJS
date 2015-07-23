@@ -20,7 +20,7 @@ var findMinLinear = function (nums) {
 	var i = nums.length - 1;
 	var min = nums[i];
 
-	while (i-- > 0) {
+	while (i --> 0) {
 		if (nums[i] < min) min = nums[i];
 	}
 
