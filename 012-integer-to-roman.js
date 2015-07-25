@@ -41,10 +41,8 @@ var intToRoman = function (num) {
 	d.n9 = Math.floor(num / 9);
 	num -= d.n9 * 9;
 
-
 	d.n5 = Math.floor(num / 5);
 	num -= d.n5 * 5;
-
 
 	d.n4 = Math.floor(num / 4);
 	num -= d.n4 * 4;
@@ -102,7 +100,6 @@ var intToRoman = function (num) {
 	while (d.n1 --> 0) {
 		r = r + 'I';
 	}
-
 
 	return r;
 
