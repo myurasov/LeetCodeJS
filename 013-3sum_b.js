@@ -27,7 +27,7 @@ var threeSum = function (nums) {
 			if (h[d] !== undefined) {
 				for (var c = 0; c < h[d].length; c++) {
 
-					// position of the number #3 should not be the same as #1 and #2
+					// position of the number #3 should not be the same as #1 or #2
 					if (h[d][c] !== a && h[d][c] !== b) {
 						var ts = [nums[a], nums[b], nums[h[d][c]]].sort();
 						var tj = ts.join();
