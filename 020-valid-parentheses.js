@@ -5,22 +5,22 @@
  * @return {boolean}
  */
 var isValid = function (s) {
-	var b = [];
+	var p = [];
 
 	for (var i = 0; i < s.length; i++) {
 		var c = s.charAt(i);
 
 		if (c === ')') {
-			if (b.pop() !== '(') return false;
+			if (p.pop() !== '(') return false;
 		} else if (c === ']') {
-			if (b.pop() !== '[') return false;
+			if (p.pop() !== '[') return false;
 		} else if (c === '}') {
-			if (b.pop() !== '{') return false;
+			if (p.pop() !== '{') return false;
 		} else {
-			b.push(c);
+			p.push(c);
 		}
 
 	}
 
-	return (b.length === 0);
+	return (p.length === 0);
 };
