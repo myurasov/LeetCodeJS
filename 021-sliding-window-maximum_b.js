@@ -2,9 +2,9 @@
 
 // Double-ended queue
 function DEQueue() {}
-DEQueue.prototype = new Array;
-DEQueue.prototype.getLeft = function () { return this[0]; }
-DEQueue.prototype.getRight = function () { return this[this.length - 1]; }
+DEQueue.prototype = new Array();
+DEQueue.prototype.getLeft = function () { return this[0]; };
+DEQueue.prototype.getRight = function () { return this[this.length - 1]; };
 DEQueue.prototype.removeLeft = Array.prototype.shift;
 DEQueue.prototype.removeRight = Array.prototype.pop;
 DEQueue.prototype.pushRight = Array.prototype.push;
@@ -32,7 +32,7 @@ var maxSlidingWindow = function (nums, k) {
 		w.pushRight(a);
 
 		if (a >= k - 1) {
-			m.push(nums[w[0]]);
+			m.push(nums[w.getLeft()]);
 		}
 	}
 	return m;
