@@ -31,18 +31,19 @@ var findRepeatedDnaSequences = function (s) {
 /**
  * Rolling hash implementation
  */
-function RollingDNAHash(window) {
-	this._windowSize = window;
+function RollingDNAHash(windowSize) {
+	this._windowSize = windowSize;
 	this._mask = ((1 << 2 * this._windowSize) - 1);
 	this._codes = {A: 0, C: 1, T: 2, G: 3};
 	this._length = 0;
+	this._lengthSize = Math.ceil(Math.log2(windowSize))
 	this.value = 0;
 }
 
 RollingDNAHash.prototype.add = function (c) {
 	var d = this._codes[c];
 	this._length += this._length < this._windowSize ? 1 : 0;
-	this.value = (this._length << this._windowSize * 2 + 4) // 4 bytes for lenght
-				 + ((this.value << 2) & this._mask)			// 2*windowSize bytes for data
+	this.value = (this._length << this._windowSize * 2 + this._lengthSize) 	// <_lengthSize> bytes for lenght
+				 + ((this.value << 2) & this._mask)							// 2*<_windowSize> bytes for data
 				 + d;
 }
