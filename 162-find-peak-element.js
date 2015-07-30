@@ -21,8 +21,10 @@ var _findPeakElement = function (nums, start, end) {
 	}
 
 	if (nums[middle - 1] > nums[middle] && end > start) {
+		// go left
 		return _findPeakElement(nums, 0, middle - 1);
 	} else if (nums[middle - 1] < nums[middle] && end > start) {
+		// go right
 		return _findPeakElement(nums, middle + 1, end);
 	}
 
