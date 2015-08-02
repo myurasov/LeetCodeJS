@@ -1,5 +1,7 @@
 // https://leetcode.com/problems/number-of-digit-one/
 
+// O(log10(N))
+
 /**
  * @param {number} n
  * @return {number}
@@ -20,8 +22,6 @@ var countDigitOne = function (n) {
 var onesAtPosition = function (n, p) {
 	var tenToP = Math.pow(10, p);
 	var tenToPMinus1 = tenToP / 10;
-
-	n = Math.abs(n);
 
 	var res = iDiv(n, tenToP) * tenToPMinus1;
 	var rem = n - res * 10;
