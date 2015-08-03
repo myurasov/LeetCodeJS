@@ -30,13 +30,12 @@ var sqrtGoldschmidts = function (S, precision, iterations) {
 	var scale = S > 3 ? 1 : 3;
 	S *= scale * scale;
 
-	var approxSqrt = S / 2;
-	var y = 1 / approxSqrt;
+	var y = 1 / (S / 2);
 	var x = S * y;
 	var h = y / 2;
-	var r = 1;
+	var r = precision;
 
-	while (iterations-- > 0 && r > precision) {
+	while (iterations-- > 0 && r >= precision) {
 		r = .5 - x * h;
 		x = x + x * r;
 		h = h + h * r;
