@@ -1,5 +1,7 @@
 // https://leetcode.com/problems/sqrtx/
 
+// Goldschmidt's method
+
 /**
  * @param {number} x
  * @return {number}
