@@ -6,47 +6,39 @@
  * @return {number}
  */
 var divide = function (dividend, divisor) {
+	// result sign
+	var sign = (dividend < 0 || divisor < 0) && !(dividend < 0 && divisor < 0) ? -1 : 1;
 
-	if (divisor === 0) {
-		return +Infinity;
+	// make args non-negative
+	dividend = dividend < 0 ? 0 - dividend : dividend;
+	divisor = divisor < 0 ? 0 - divisor : divisor;
+
+	// corner cases
+	if (divisor === 0) return +Infinity;
+	if (dividend === 0) return 0;
+	if (divisor > dividend) return 0;
+
+	var a = dividend;
+	var b = divisor;
+	var result = 1;
+
+	// divide dividend by 2, multiply dividend by 2 simultaneously
+	while ((b << 1) > 0 && (b << 1) <= dividend) {
+		a >>= 1;
+		b <<= 1;
+		result <<= 1;
 	}
 
-	var sign = (dividend < 0 && divisor >= 0) || (dividend >= 0 && divisor < 0) ? -1 : 1;
+	// add remainder
+	result += divide(dividend - b /* remainder */, divisor);
 
-	if (dividend < 0) dividend = -dividend;
-	if (divisor < 0) divisor = -divisor;
+	// adjust sign
+	result = sign === -1 ? 0 - result : result;
 
-	if (divisor === 1) {
-		return dividend * sign;
-	}
+	// for leetcode
+	result = Math.min(2147483647, result);
+	result = Math.max(-2147483648, result);
 
-	if (dividend === divisor) {
-		return sign;
-	}
+	return result;
+}
 
-	var remain = dividend;
-	var part1 = divisor;
-	var result = 0;
-	var mask = 1;
-
-	while (part1 < remain) {
-		part1 <<= 1;
-		mask <<= 1;
-
-		if (part1 < 0 || mask < 0) {
-			return NaN; // overflow
-		}
-	}
-
-	do {
-		if (remain >= part1) {
-			remain -= part1;
-			result += mask;
-		}
-
-		part1 >>= 1;
-		mask >>= 1;
-	} while (mask != 0);
-
-	return result * sign;
-};
