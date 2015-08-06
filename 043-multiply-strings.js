@@ -24,7 +24,10 @@ var _multiply = function (num1, num2) {
 		result = _add(result, r);
 	}
 
-	return result;
+	// remove leading zeroes
+	result = result.replace(/^0+/g, '');
+
+	return result || '0';
 };
 
 /**
@@ -70,9 +73,6 @@ var _add = function (num1, num2) {
 	if (carry > 0) {
 		result = carry.toString() + result;
 	}
-
-	// remove leading zeroes
-	result = result.replace(/^0+/g, '0');
 
 	return result || '0';
 }
