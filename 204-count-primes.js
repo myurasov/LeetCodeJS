@@ -17,7 +17,7 @@ var countPrimes = function (n) {
 };
 
 var isPrime = function (n) {
-	for (var d = 2; d <= Math.sqrt(n); d++) {
+	for (var d = 2; d * d <= n; d++) {
 		if (n % d === 0) return false;
 	}
 
