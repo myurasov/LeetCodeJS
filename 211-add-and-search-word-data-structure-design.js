@@ -21,18 +21,19 @@ var WordDictionary = function () {
  * @return {void}
  * Adds a word into the data structure.
  */
-WordDictionary.prototype.addWord = function (word, _root) {
+WordDictionary.prototype.addWord = function (word, _start, _root) {
 	if (_root === undefined) _root = this.root;
+	if (_start === undefined) _start = 0;
 
-	if (word.length > 0) {
-		var c = word.charAt(0);
+	if (_start < word.length) {
+		var c = word.charAt(_start);
 
 		if (!_root.children.has(c)) {
 			_root.children.set(c, new TrieNode());
 		}
 
 		// go one level deeper
-		this.addWord(word.substr(1), _root.children.get(c));
+		this.addWord(word, _start + 1, _root.children.get(c));
 	} else {
 		_root.isLeaf = true;
 	}
@@ -44,16 +45,17 @@ WordDictionary.prototype.addWord = function (word, _root) {
  * Returns if the word is in the data structure. A word could
  * contain the dot character '.' to represent any one letter.
  */
-WordDictionary.prototype.search = function (word, _root) {
+WordDictionary.prototype.search = function (word, _start, _root) {
 	if (_root === undefined) _root = this.root;
+	if (_start === undefined) _start = 0;
 
-	if (word.length > 0) {
-		var c = word.charAt(0);
+	if (_start < word.length) {
+		var c = word.charAt(_start);
 
 		if (_root.children.has(c)) {
 
 			// go one level deeper
-			return this.search(word.substr(1), _root.children.get(c));
+			return this.search(word, _start + 1, _root.children.get(c));
 
 		} else if (c === '.') {
 
@@ -65,7 +67,7 @@ WordDictionary.prototype.search = function (word, _root) {
 			while (child = childrenIterator.next()) {
 				if (child.done) break;
 
-				if (this.search(word.substr(1), child.value[1])) {
+				if (this.search(word, _start + 1, child.value[1])) {
 					return true;
 				}
 			}
