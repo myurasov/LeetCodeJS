@@ -22,7 +22,10 @@ var _isMatch = function (string, pattern, memory, s, p) {
 
 		if (P.any) {
 			if (P.char === S || P.char === '.') {
-				if (_isMatch(string, pattern, memory, s, 1 + p)) return true;
+				if (_isMatch(string, pattern, memory, s, 1 + p)) {
+					memory.set(key, true);
+					return true;
+				}
 				s++;
 			} else {
 				p++;
@@ -32,13 +35,17 @@ var _isMatch = function (string, pattern, memory, s, p) {
 				s++;
 				p++;
 			} else {
+				memory.set(key, false);
 				return false;
 			}
 		}
 
 	}
 
-	return s === string.length && (pattern.length === p || pattern[p].stop);
+	var res = s === string.length && (pattern.length === p || pattern[p].stop);
+	memory.set(key, false);
+
+	return res;
 }
 
 /**
