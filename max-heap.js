@@ -9,82 +9,56 @@
  */
 function MaxHeap(data) {
 	this.data = data;
-	this._heapify();
+	this._build();
 }
 
-MaxHeap.prototype.insert = function (x) {
-	this.data.push(x);
-	this._heapify();
+MaxHeap.prototype.insert = function (k) {
+	this.data.push(k);
+	this._build();
 }
 
 MaxHeap.prototype.max = function () {
-	if (this.data.length > 0) {
-		return this.data[0];
-	}
+	return this.data[0];
 }
 
 MaxHeap.prototype.extractMax = function () {
-	if (this.data.length > 0) {
-		var res = this.data.shift();
-		this._heapify();
-		return res;
-	}
+	var res = this.data.shift();
+	this._build();
+	return res;
 }
 
 MaxHeap.prototype.updateKey = function (x, k) {
-	if (this._has(x)) {
+	if (x < this.data.length) {
 		this.data[x] = k;
-		this._heapify();
+		this._build();
 	}
 }
 
-MaxHeap.prototype._has =  function (x) {
-	return x < this.data.length;
+MaxHeap.prototype._build = function () {
+	for (var x = Math.floor(this.data.length / 2); x >= 0; x--) {
+		this._heapify(x);
+	}
 }
 
 MaxHeap.prototype._heapify = function (x) {
-
-	x = x || 0;
-
 	var left = 2 * x + 1;
 	var right = 2 * x + 2;
+	var largest = x;
 
-	var swap = (function (a, b) {
-		var tmp = this.data[a];
-		this.data[a] = this.data[b];
-		this.data[b] = tmp;
-	}).bind(this);
+	if (left < this.data.length && this.data[left] > this.data[largest]) {
+		largest = left;
+	}
 
-	var violatesMaxHeap = (function (root, child) {
-		return this.data[root] < this.data[child];
-	}).bind(this);
+	if (right < this.data.length && this.data[right] > this.data[largest]) {
+		largest = right;
+	}
 
-	if (this._has(left) && !this._has(right)) {
-
-		this._heapify(left);
-
-		if (violatesMaxHeap(x, left)) {
-			swap(x, left);
-		}
-
-	} else if (this._has(left) && this._has(right)) {
-
-		this._heapify(left);
-		this._heapify(right);
-
-		// pick a bigger child for verification
-		var child = this.data[left] > this.data[right] ? left : right;
-
-		if (violatesMaxHeap(x, child)) {
-			swap(x, child);
-		}
-
+	if (largest !== x) {
+		var tmp = this.data[x];
+		this.data[x] = this.data[largest];
+		this.data[largest] = tmp;
+		this._heapify(largest);
 	}
 }
 
-m = new MaxHeap([16, 4, 10, 14, 7, 9, 3, 2, 8, 1, 1000])
-m.updateKey(9, 10000);
-// m = new MaxHeap([])
-console.log(m.data);
-console.log(m.extractMax());
-console.log(m.data);
+
