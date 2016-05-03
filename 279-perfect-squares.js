@@ -26,7 +26,7 @@ var numSquares = function (n) {
                     if (c < res) {
                         res = c;
                     }
-                } else {
+                } else if (c + 1 < res /* we already have better result */) {
                     squares(o - s, c + 1)
                 }
 
