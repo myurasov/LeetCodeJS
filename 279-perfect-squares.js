@@ -12,17 +12,18 @@ var numSquares = function (n) {
     return res;
 
     function squares(n, c) {
-        var key = n + ':' + c;
+        var key = n * 10000 + c;
 
-        if (!m1.has(key)) {
+        if (!m1.has(key)) { // memoization
             m1.add(key);
 
             var o = n;
 
+            // iterate through perfect squares in n, top to bottom
             while (n > 0) {
                 var s = largestSquare(n);
 
-                if (o === s) {
+                if (o === s /* n will be === 0 on next call */) {
                     if (c < res) {
                         res = c;
                     }
@@ -32,6 +33,7 @@ var numSquares = function (n) {
 
                 n = s - 1;
             }
+
         }
     }
 
