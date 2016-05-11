@@ -6,29 +6,27 @@
  */
 var lengthOfLongestSubstring = function (s) {
 
-	// has .clear() nethod which performs much faster than creating new object
-	var h = new Set();
-	var m = 0;
+    var m = 0;
 
-	for (var i = 0; i < s.length; i++) {
-		h.clear();
-		h.add(s.charAt(i));
+    for (var i = 0; i < s.length; i++) {
+        var h = Array(256);
+        h[s.charCodeAt(i)] = 1;
 
-		var mm = 1;
+        var mm = 1;
 
-		for (j = i + 1; j < s.length; j++) {
-			var jc = s.charAt(j);
+        for (j = i + 1; j < s.length; j++) {
+            var jc = s.charCodeAt(j);
 
-			if (h.has(jc)) {
-				break;
-			} else {
-				mm++;
-				h.add(jc);
-			}
-		}
+            if (1 === h[jc]) {
+                break;
+            } else {
+                mm++;
+                h[jc] = 1;
+            }
+        }
 
-		m = Math.max(m, mm);
-	}
+        if (mm > m) m = mm;
+    }
 
-	return m;
+    return m;
 };
