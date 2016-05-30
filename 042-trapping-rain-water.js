@@ -6,32 +6,27 @@
  */
 var trap = function (height) {
 
-    var ltr = [];
-    var rtl = [];
-    var m;
+    var ltr = new Uint32Array(height.length);
+    var rtl = new Uint32Array(height.length);
+    var maxLtr = 0, maxRtl = 0, left = 0, right = 0;
 
-    m = -Infinity;
-
-    for (var i = 0; i < height.length; i++) {
-        if (height[i] > m) m = height[i];
-        ltr.push(m);
-    }
-
-    m = -Infinity;
-
-    for (var i = height.length - 1; i >= 0; i--) {
-        if (height[i] > m) m = height[i];
-        rtl.unshift(m);
+    // compute maxs: left-to-right, right-to-left
+    for (left = 0; left < height.length; left++) {
+        right = height.length - 1 - left;
+        if (height[right] > maxRtl) maxRtl = height[right];
+        rtl[right] = maxRtl;
+        if (height[left] > maxLtr) maxLtr = height[left];
+        ltr[left] = maxLtr;
     }
 
     // water[i] = min(ltr, rtl) - height[i]
-    var w = 0;
+    var water = 0;
 
-    for (var i = 0; i < height.length; i++) {
-        w += (ltr[i] < rtl[i] ? ltr[i] : rtl[i]) - height[i];
+    for (left = 0; left < height.length; left++) {
+        water += (ltr[left] < rtl[left] ? ltr[left] : rtl[left]) - height[left];
     }
 
-    return w;
+    return water;
 };
 
 console.log(trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]) === 6);
